@@ -1,60 +1,6 @@
 # htaccess
 die wichtigsten htaccess redirects auf einem Blick
 
-
-## Zusammengestellt von Lightweb-media.de 
+Zusammengestellt von Lightweb-media.de 
 ## https://lightweb-media.de/seo/die-wichtigsten-htaccess-redirects-auf-einem-blick/
-## SEO & Webprogrammierung
- 
-#Einen einzelnen Beitrag umleiten
-Redirect 301 /alterSlug https://deineDomain.de/neuerSlug
- 
-#Redirect komplette Domain auf neue Domain
-RewriteEngine On
-RewriteCond %{HTTP_HOST} ^deineAlteDomain.de$ [OR]
-RewriteCond %{HTTP_HOST} ^www.deineAlteDomain.de$
-RewriteRule (.*)$ https://deineNeueDomain.de/$1 [R=301,L]
- 
-#Redirect bestimmte Dateiendungen
-RedirectMatch 301 (.*)\.html$ https://deineDomain.de$1.php
- 
-#Redirect alles zu HTTPS
-RewriteEngine on
-RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
-RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
-RewriteCond %{HTTPS} !on
-RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
- 
-#Redirect alles zu HTTPS://WWW
-RewriteEngine On
-RewriteCond %{HTTPS} off [OR]
-RewriteCond %{HTTP_HOST} !^www\. [NC]
-RewriteCond %{HTTP_HOST} ^(.*)$  [NC]
-RewriteRule (.*) https://www.%1/$1 [R=301,L]
- 
-#Trimme den Facebook Slug
-RewriteEngine On
-RewriteBase /
-RewriteCond %{QUERY_STRING} ^(.*)(?:^|&)fbclid=(?:[^&]*)((?:&|$).*)$ [NC]
-RewriteCond %1%2 (^|&)([^&].*|$)
-RewriteRule ^(.*) /$1?%2 [R=301,L]
- 
-#Redirect Startseite zu einem Verzeichnis, der Rest aber zum Root der neuen Domain
-RewriteRule . https://lightweb-media.de/%{REQUEST_URI} [R=301,L]
-RewriteRule ^ https://lightweb-media.de/heavy/ [R=301,L]
- 
-#Eine Domain aufteilen und auf verschiedene andere Domains weiterleiten
-RewriteEngine On
-RewriteBase /
-RewriteCond %{REQUEST_URI} !^/heavy(/|$) [NC]
-RewriteCond %{REQUEST_URI} !^/light(/|$) [NC]
-RewriteCond %{REQUEST_URI} !^/slow(/|$) [NC]
-RewriteCond %{REQUEST_URI} !^/fast(/|$) [NC]
-RewriteCond %{REQUEST_URI} !^/hard(/|$) [NC]
-RewriteRule ^(.*)$ https://lightweb-media.de/$1 [R=301,L]
- 
-RedirectMatch 301 ^/heavy/(.*) https://heavyweb-media.de.de/$1
-RedirectMatch 301 ^/light/(.*) https://lightweb-media.de/$1
-RedirectMatch 301 ^/slow/(.*) https://slowweb-media.de/$1
-RedirectMatch 301 ^/fast/(.*) https://fastweb-media.de/$1
-RedirectMatch 301 ^/hard/(.*) https://hardweb-media.de/$1
+
