@@ -54,3 +54,16 @@ RedirectMatch 301 ^/light/(.*) https://lightweb-media.de/$1
 RedirectMatch 301 ^/slow/(.*) https://slowweb-media.de/$1
 RedirectMatch 301 ^/fast/(.*) https://fastweb-media.de/$1
 RedirectMatch 301 ^/hard/(.*) https://hardweb-media.de/$1
+
+#Redirect einer Domain, aber bestimmte Verzeichnisse auslassen
+#Wichtig, wenn z.B. Spamlinks auf bestimmten Unterseiten zeigen. In diesem Beispiel werden /spamunterseite1 + 2 nicht weitergeleitet.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{THE_REQUEST} !/spamunterseite1
+  RewriteCond %{THE_REQUEST} !/spamunterseite2
+  RewriteCond %{HTTP_HOST} ^alteSeite.de$ [OR]
+  RewriteCond %{HTTP_HOST} ^www.alteSeite.de$
+  RewriteRule (.*)$ https://neueSeite.de/$1
+[R=301,L]
+</IfModule>
